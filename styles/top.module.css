@@ -1,0 +1,19 @@
+
+
+.flex_box {
+    display: flex;
+    padding-top: 20px;
+}
+
+.flex_item_div{
+    flex: 100px 0 0;
+}
+
+.logo {
+    width : 80px;
+}
+
+.block {
+    display: block;
+}
+
