@@ -1,13 +1,13 @@
 import {Header} from "semantic-ui-react";
 import Gnd from "./Gnd";
-
+import styles from "../../styles/top.module.css"
 const Top = () => {
     return (
         <div>
-            <div style={{display : "flex", paddingTop: 20}}>
-                <div style={{flex : "100px 0 0"}}>
+            <div className={styles.flex_box}>
+                <div className = {styles.flex_item_div}>
                     <img src="/images/icon.jpg" alt="logo"
-                         style={{display:"block",width:80}}
+                         className={[styles.logo,styles.block].join(" ") }
                     />
 
                 </div>

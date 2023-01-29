@@ -1,44 +1,16 @@
 import axios from "axios";
 import Item from "../../src/component/Item";
 import {GetStaticPaths, GetStaticPathsContext, GetStaticProps, GetStaticPropsContext} from "next";
-import Head from "next/head";
 import {useRouter} from "next/router";
 import {Loader} from "semantic-ui-react";
-
-
-// export interface Root2 {
-//     id: number
-//     brand: string
-//     name: string
-//     price: string
-//     price_sign: any
-//     currency: any
-//     image_link: string
-//     product_link: string
-//     website_link: string
-//     description: string
-//     rating?: number
-//     category?: string
-//     product_type: string
-//     tag_list: any[]
-//     created_at: string
-//     updated_at: string
-//     product_api_url: string
-//     api_featured_image: string
-//     product_colors: ProductColor[]
-// }
-//
-// export interface ProductColor {
-//     hex_value: string
-//     colour_name?: string
-// }
-
+import HeadInfo from "../../src/component/HeadInfo";
 
 
 const Post = ({item ,name}: any) => {
     const router = useRouter()
 
     console.log(router.isFallback)
+    console.log(router)
 
     if (router.isFallback){
         return (
@@ -52,10 +24,7 @@ const Post = ({item ,name}: any) => {
 
     return (
         <>
-            <Head>
-                <title>{item?.name}</title>
-                <meta name={"description"} content={item?.description}/>
-            </Head>
+            <HeadInfo name={item.name} description={item.description}/>
             {name || ''} 환경입니다.
             <Item item={item ?? null}/>
         </>
@@ -75,7 +44,8 @@ export const getStaticPaths: GetStaticPaths = async (context:GetStaticPathsConte
 
 
     return {
-        paths :data.slice(0,10).map((d:any)=>({
+        paths :
+            data.slice(0,10).map((d:any)=>({
             params :{
                 id : d.id.toString()
             }
@@ -85,7 +55,7 @@ export const getStaticPaths: GetStaticPaths = async (context:GetStaticPathsConte
 }
 
 
-
+//getStaticProps 를 사용하는경우 getStaticPaths을 함께 정의 해주어야한다.
 export const getStaticProps: GetStaticProps = async (context: GetStaticPropsContext) => {
     const id = context.params!.id
     const apiUrl = `https://makeup-api.herokuapp.com/api/v1/products/${id}.json`
@@ -96,6 +66,7 @@ export const getStaticProps: GetStaticProps = async (context: GetStaticPropsCont
         props: {
             item: data,
             name : process.env.name
-        }
+        },
+        revalidate :20 //설정한 시간이후 접속이 일어나는 시점에 re-generation을 한다(정적생성)
     }
 }
