@@ -1,15 +1,45 @@
 import type {GetStaticProps, GetStaticPropsContext, NextPage} from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import axios from "axios";
-import {useEffect, useState} from "react";
 import ItemList from "../src/component/ItemList";
-import {Dimmer, Divider, Header, Loader, Segment} from "semantic-ui-react";
-import {GetServerSideProps, GetServerSidePropsContext} from "next";
+import {Divider, Header} from "semantic-ui-react";
 import HeadInfo from "../src/component/HeadInfo";
 
-const Home: NextPage = ({list}:any) => {
+
+export interface HomeProps {
+    list :HomeItem[]
+}
+
+export interface HomeItem {
+    id: number
+    brand: string
+    name: string
+    price: string
+    price_sign: any
+    currency: any
+    image_link: string
+    product_link: string
+    website_link: string
+    description: string
+    rating?: number
+    category?: string
+    product_type: string
+    tag_list: any[]
+    created_at: string
+    updated_at: string
+    product_api_url: string
+    api_featured_image: string
+    product_colors: ProductColor[]
+}
+
+export interface ProductColor {
+    hex_value: string
+    colour_name?: string
+}
+
+
+
+const Home = ({list}:HomeProps) => {
     return (
         <div className={styles.container}>
             <HeadInfo/>
