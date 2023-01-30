@@ -5,8 +5,16 @@ import {useRouter} from "next/router";
 const Login = ()=>{
     const router = useRouter()
 
+
+
     const clickHandle = ()=>{
-        axios.post("/api/login")
+
+        document.cookie = "test-cookie=1000;"
+
+        axios.post("/api/login" ,{id : "test"} ,
+            {
+                params : {query : 123}
+            })
             .then(res=>{
                 if (res.status ===200){
                     router.push("/admin")

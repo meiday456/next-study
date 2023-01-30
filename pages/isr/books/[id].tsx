@@ -2,6 +2,7 @@ import {Book} from "../books";
 import {ParsedUrlQuery} from "querystring";
 import {GetStaticPaths, GetStaticProps} from "next";
 import axios from "axios";
+import {useRouter} from "next/router";
 
 type GetSpecificBookResponse = {
     data: Book;
@@ -12,6 +13,11 @@ interface IdParams extends ParsedUrlQuery {
 }
 
 export default function SpecificBook({ data: { id, title, description } }: {data : Book}) {
+
+    const router = useRouter()
+
+    console.log(router)
+
     return (
         <>
             <div key={id}>

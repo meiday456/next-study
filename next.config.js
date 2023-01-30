@@ -11,6 +11,14 @@ const nextConfig = {
     fontLoaders :[
       {loader : '@next/font/google', options : {subsets:['latin']}}
     ]
+  },
+  rewrites(){
+    return [
+      {
+        destination : "",
+        source : ""
+      }
+    ]
   }
 }
 

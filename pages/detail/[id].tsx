@@ -12,6 +12,8 @@ const Post = ({item ,name}: any) => {
     console.log(router.isFallback)
     console.log(router)
 
+    console.log(process.env.NEXT_PUBLIC_API_URL)
+
     if (router.isFallback){
         return (
             <div style={{padding:"100px 0"}}>

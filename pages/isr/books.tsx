@@ -15,7 +15,8 @@ const Books = ({data}:Props) => {
     return (
         <>
             {data?.map(({id, title, description}) => (
-                <Link href={`/isr/books/${id}`} key={id}>
+                <Link href={{pathname : `/isr/books/${id}`, query:{testQ : "dsadsadsa"}}} key={id}>
+                {/*<Link href={`/isr/books/${id}`} key={id}>*/}
                     <div style={{padding: "10px", cursor: "pointer", borderBottom: "1px solid black"}}>
                         <span style={{marginRight: "10px"}}>{title}</span>
                         <span>{description}</span>
