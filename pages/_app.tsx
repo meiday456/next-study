@@ -3,6 +3,12 @@ import type {AppProps} from 'next/app'
 import "semantic-ui-css/semantic.css"
 import Footer from "../src/component/Footer";
 import Top from "../src/component/Top";
+import {Roboto} from "@next/font/google";
+
+const roboto = Roboto({
+    subsets: ['latin'],
+    weight: ['400', '700']
+})
 
 
 //레이아웃 컴포넌트 적용을 여기서 해주면 된다.
@@ -12,17 +18,23 @@ import Top from "../src/component/Top";
 function MyApp({Component, pageProps}: AppProps) {
 
     // @ts-ignore
-    const getLayout = (Component.getLayout) || ((page:React.ReactNode)=> {
-        return (<div style={{width : 1000 , margin : "0 auto"}}>
-            <Top/>
-            {page}
-            <Footer/>
-        </div>)
-
+    const getLayout = (Component.getLayout) || ((page: React.ReactNode) => {
+        return (
+            <>
+                <style jsx global>{
+                    `html {
+                      font-family: ${roboto.style.fontFamily};
+                    }`
+                }</style>
+                <div style={{width: 1000, margin: "0 auto"}}>
+                    <Top/>
+                    {page}
+                    <Footer/>
+                </div>
+            </>
+            )
     })
-
     return getLayout(<Component {...pageProps}/>)
-
 }
 
 export default MyApp
