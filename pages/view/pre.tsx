@@ -24,9 +24,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
     console.log(context.preview)
     console.log(typeof context.previewData)
 
+    let type=""
+    if (context.previewData){
+        type = (context.previewData as { [key: string]: string }).type
+    }
+
     return {
         props: {
-            type: (context.previewData as { [key: string]: string }).type
+            type: type
         }
     }
 }

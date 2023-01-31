@@ -22,15 +22,17 @@ Preview.defaultProps = {
 //미리보기가 셋팅된 경우에 이페이로 이동하는경우에 context.data 등이 나온다
 export const getStaticProps: GetStaticProps = async (context) => {
 
-    const response = await axios.get("http://localhost:3000/api/view/preview")
-
-    console.log(response.data)
     console.log(context.preview)
     console.log(typeof context.previewData)
 
+    let type=""
+    if (context.previewData){
+        type = (context.previewData as { [key: string]: string }).type
+    }
+
     return {
         props: {
-            type: (context.previewData as { [key: string]: string }).type
+            type: type
         }
     }
 }
