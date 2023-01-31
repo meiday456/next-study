@@ -1,10 +1,19 @@
+import {NextPageContext} from "next";
 
-const Item = ()=>{
+const Item = ({body}:any)=>{
     return (
         <div>
-            하위 요소
+            {body}
         </div>
     )
+}
+
+Item.getInitialProps = async(ctx:NextPageContext)=>{
+
+    const res = await fetch('https://jsonplaceholder.typicode.com/posts/1')
+    const json :any = await res.json()
+
+    return {body : json.body }
 }
 
 export default Item

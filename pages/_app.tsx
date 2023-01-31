@@ -1,14 +1,17 @@
 import '../styles/globals.css'
-import type {AppProps} from 'next/app'
+import type {AppProps, NextWebVitalsMetric} from 'next/app'
 import "semantic-ui-css/semantic.css"
 import Footer from "../src/component/Footer";
 import Top from "../src/component/Top";
 import {Roboto} from "@next/font/google";
+import ErrorBoundary from "./ErrorBoundary";
+
 
 const roboto = Roboto({
     subsets: ['latin'],
     weight: ['400', '700']
 })
+
 
 
 //레이아웃 컴포넌트 적용을 여기서 해주면 된다.
@@ -20,7 +23,7 @@ function MyApp({Component, pageProps}: AppProps) {
     // @ts-ignore
     const getLayout = (Component.getLayout) || ((page: React.ReactNode) => {
         return (
-            <>
+            <ErrorBoundary>
                 <style jsx global>{
                     `html {
                       font-family: ${roboto.style.fontFamily};
@@ -31,10 +34,18 @@ function MyApp({Component, pageProps}: AppProps) {
                     {page}
                     <Footer/>
                 </div>
-            </>
-            )
+            </ErrorBoundary>
+        )
     })
     return getLayout(<Component {...pageProps}/>)
+}
+
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+    if (metric.label === 'web-vital') {
+        console.log('web-vital ', metric)
+    } else {
+        console.log('report', metric)
+    }
 }
 
 export default MyApp

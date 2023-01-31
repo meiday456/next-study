@@ -1,13 +1,13 @@
 import dynamic from "next/dynamic";
 import {useState} from "react";
-
+import Item from "./item"
 
 //다이나믹을 사용하면 해당 컴포넌트는 페이지 초기 javascript에서는 제외된다.
 //페이지는 suspense fallback을 먼저 렌더링하고, suspense의 boundary가 끝나면 그때 dynamic import를 렌더링한다.
 const DynamicItem = dynamic(() => import ("./item"), {
     loading: () => <div>Loading!</div>, //loading 시 리턴되는 정보/ suspense의 확장
     // CSR로 동적으로 로드하려면 ssr : false로 import , 외부 종속 혹은 구성요소가 browser api's 등에 의존하는 경우 유용
-    ssr: false,
+    // ssr: true,
 })
 
 
@@ -17,6 +17,7 @@ const Main = () => {
     return (
         <>
             <DynamicItem/>
+            <Item/>
             <div>
                 {num}
                 <button onClick={async() => {
