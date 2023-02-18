@@ -1,54 +1,52 @@
-import '../styles/globals.css'
-import type {AppProps, NextWebVitalsMetric} from 'next/app'
-import "semantic-ui-css/semantic.css"
+import "../styles/globals.css";
+import type { AppProps, NextWebVitalsMetric } from "next/app";
+import "semantic-ui-css/semantic.css";
 import Footer from "../src/component/Footer";
 import Top from "../src/component/Top";
-import {Roboto} from "@next/font/google";
+import { Roboto } from "@next/font/google";
 import ErrorBoundary from "./ErrorBoundary";
 
-
 const roboto = Roboto({
-    subsets: ['latin'],
-    weight: ['400', '700']
-})
-
-
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
 
 //레이아웃 컴포넌트 적용을 여기서 해주면 된다.
 
 //Component는 현재 넘어온컴포넌트를 의미
 //pageProps data fetching으로 미리 가져온 정보
-function MyApp({Component, pageProps}: AppProps) {
-
+function MyApp({ Component, pageProps }: AppProps) {
+  const getLayout =
     // @ts-ignore
-    const getLayout = (Component.getLayout) || ((page: React.ReactNode) => {
-        return (
-            <ErrorBoundary>
-                <style jsx global>{
-                    `html {
-                      font-family: ${roboto.style.fontFamily};
-                    }`
-                }</style>
-                <div style={{width: 1000, margin: "0 auto"}}>
-                    <Top/>
-                    {page}
-                    <Footer/>
-                </div>
-            </ErrorBoundary>
-        )
-    })
-    return getLayout(<Component {...pageProps}/>)
+    Component.getLayout ||
+    ((page: React.ReactNode) => {
+      return (
+        <ErrorBoundary>
+          <style jsx global>{`
+            html {
+              font-family: ${roboto.style.fontFamily};
+            }
+          `}</style>
+          <div style={{ width: 1000, margin: "0 auto" }}>
+            <Top />
+            {page}
+            <Footer />
+          </div>
+        </ErrorBoundary>
+      );
+    });
+  return getLayout(<Component {...pageProps} />);
 }
 
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-    if (metric.label === 'web-vital') {
-        console.log('web-vital ', metric)
-    } else {
-        console.log('report', metric)
-    }
+  if (metric.label === "web-vital") {
+    console.log("web-vital ", metric);
+  } else {
+    console.log("report", metric);
+  }
 }
 
-export default MyApp
+export default MyApp;
 
 /*
   페이지 전환시 레이아웃을 유지할 수 있음
